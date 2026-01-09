@@ -1,22 +1,22 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import Autoplay from "embla-carousel-autoplay";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi,
 } from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
-import { Badge } from "../ui/badge";
 import { cn, formatPrice } from "@/lib/utils";
 import type { FEATURED_PRODUCTS_QUERYResult } from "@/sanity.types";
+import { Badge } from "../ui/badge";
 
 type FeaturedProduct = FEATURED_PRODUCTS_QUERYResult[number];
 

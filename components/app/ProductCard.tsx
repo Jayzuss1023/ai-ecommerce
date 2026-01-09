@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, CardFooter } from "../ui/card";
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn, formatPrice } from "@/lib/utils";
-// import {AddToCartButton} from "./AddToCardButton"
-// import {StockBadge} from "./StockBadge"
 import type { FILTER_PRODUCTS_BY_NAME_QUERYResult } from "@/sanity.types";
+import { Card, CardContent, CardFooter } from "../ui/card";
+import { AddToCartButton } from "./AddToCartButton";
+import { StockBadge } from "./StockBadge";
 
 type Product = FILTER_PRODUCTS_BY_NAME_QUERYResult[number];
 
@@ -31,7 +31,6 @@ export function ProductCard({ product }: ProductCardProps) {
   const stock = product.stock ?? 0;
   const isOutOfStock = stock <= 0;
   const hasMultipleImages = images.length > 1;
-  console.log(product);
 
   return (
     <Card className="group relative flex h-full flex-col overflow-hidden rounded-2xl border-0 bg-white shadow-sm ring-1 ring-zinc-950/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-zinc-950/10 dark:bg-zinc-900 dark:ring-white-10 dark:hover:shadow-zinc-950/50">
@@ -125,18 +124,18 @@ export function ProductCard({ product }: ProductCardProps) {
           <p className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
             {formatPrice(product.price)}
           </p>
-          {/* <StockBadge productId={product._id} stock={stock}/> */}
+          <StockBadge productId={product._id} stock={stock} />
         </div>
       </CardContent>
 
       <CardFooter>
-        {/* <AddToCartButton 
-            productId={product._id}
-            name={product.name ?? "Unknown Product"}
-            price={product.price ?? 0}
-            image={mainImageUrl ?? undefined}
-            stock={stock}
-        /> */}
+        <AddToCartButton
+          productId={product._id}
+          name={product.name ?? "Unknown Product"}
+          price={product.price ?? 0}
+          image={mainImageUrl ?? undefined}
+          stock={stock}
+        />
       </CardFooter>
     </Card>
   );

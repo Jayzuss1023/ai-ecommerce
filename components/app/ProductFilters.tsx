@@ -1,8 +1,13 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useState, useEffect } from "react";
 import { X } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { COLORS, MATERIALS, SORT_OPTIONS } from "@/lib/constants/filters";
+import type { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import {
   Select,
   SelectContent,
@@ -10,12 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { Slider } from "../ui/slider";
-import { COLORS, MATERIALS, SORT_OPTIONS } from "@/lib/constants/filters";
-import type { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
-import { Badge } from "../ui/badge";
 
 interface ProductFiltersProps {
   categories: ALL_CATEGORIES_QUERYResult;
