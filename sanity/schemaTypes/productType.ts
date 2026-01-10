@@ -1,8 +1,8 @@
 import { PackageIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 import {
-  COLORS_SANITY_LIST,
   MATERIALS_SANITY_LIST,
+  COLORS_SANITY_LIST,
 } from "@/lib/constants/filters";
 
 export const productType = defineType({
@@ -45,7 +45,7 @@ export const productType = defineType({
       name: "price",
       type: "number",
       group: "details",
-      description: "Price in GBP (e.g., 599,99)",
+      description: "Price in GBP (e.g., 599.99)",
       validation: (rule) => [
         rule.required().error("Price is required"),
         rule.positive().error("Price must be a positive number"),
@@ -80,7 +80,7 @@ export const productType = defineType({
       name: "dimensions",
       type: "string",
       group: "details",
-      description: "e.g., 120cm x 8cm x 75cm",
+      description: 'e.g., "120cm x 80cm x 75cm"',
     }),
     defineField({
       name: "images",
@@ -121,7 +121,7 @@ export const productType = defineType({
       type: "boolean",
       group: "inventory",
       initialValue: false,
-      description: "Does this product required more assembly?",
+      description: "Does this product require assembly?",
     }),
   ],
   preview: {
@@ -134,7 +134,7 @@ export const productType = defineType({
     prepare({ title, subtitle, media, price }) {
       return {
         title,
-        subtitle: `${subtitle ? subtitle + " • " : ""}$${price ?? 0}`,
+        subtitle: `${subtitle ? subtitle + " • " : ""}£${price ?? 0}`,
         media,
       };
     },
