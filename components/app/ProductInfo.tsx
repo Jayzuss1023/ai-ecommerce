@@ -1,9 +1,9 @@
 import Link from "next/link";
+import { formatPrice } from "@/lib/utils";
+import type { PRODUCT_BY_SLUG_QUERYResult } from "@/sanity.types";
 import { AddToCartButton } from "./AddToCartButton";
 // import { AskAISimilarButton } from "@/components/app/AskAISimilarButton";
 import { StockBadge } from "./StockBadge";
-import { formatPrice } from "@/lib/utils";
-import type { PRODUCT_BY_SLUG_QUERYResult } from "@/sanity.types";
 
 interface ProductInfoProps {
   product: NonNullable<PRODUCT_BY_SLUG_QUERYResult>;

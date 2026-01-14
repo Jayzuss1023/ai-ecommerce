@@ -1,9 +1,10 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import { CartStoreProvider } from "@/lib/store/cart-store-provider";
-import { SanityLive } from "@/sanity/lib/live";
 import { Toaster } from "sonner";
+import { CartSheet } from "@/components/app/CartSheet";
 import { Header } from "@/components/app/Header";
+import { CartStoreProvider } from "@/lib/store/cart-store-provider";
 import { ChatStoreProvider } from "@/lib/store/chat-store-provider";
+import { SanityLive } from "@/sanity/lib/live";
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -12,6 +13,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         <ChatStoreProvider>
           <Header />
           <main>{children}</main>
+          <CartSheet />
           <Toaster position="bottom-center" />
           <SanityLive />
         </ChatStoreProvider>
