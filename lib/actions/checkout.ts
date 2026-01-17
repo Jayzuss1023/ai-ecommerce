@@ -2,9 +2,9 @@
 
 import { auth, currentUser } from "@clerk/nextjs/server";
 import Stripe from "stripe";
+import { getOrCreateStripeCustomer } from "@/lib/actions/customer";
 import { client } from "@/sanity/lib/client";
 import { PRODUCTS_BY_IDS_QUERY } from "../sanity/queries/products";
-import { getOrCreateStripeCustomer } from "@/lib/actions/customer";
 
 if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error("STRIPE_SECREY_KEY is not defined!");
@@ -126,7 +126,7 @@ export async function createCheckoutSession(
       userEmail,
       sanityCustomerId,
       productIds: validatedItems.map((i) => i.product._id).join(","),
-      quantityies: validatedItems.map((i) => i.quantity).join(","),
+      quantities: validatedItems.map((i) => i.quantity).join(","),
     };
 
     // 8. Create Stripe Checkout Session
@@ -214,3 +214,41 @@ export async function createCheckoutSession(
 /**
  * Retrieves a cehckout session by ID (for success page)
  */
+export async function getCheckoutSession(sessionId: string) {
+  try {
+    const { userId } = await auth();
+
+    if (!userId) {
+      return { success: false, error: "Not authenticated" };
+    }
+
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ["line_items", "customer_details"],
+    });
+
+    //Verify the session belongs to this user
+    if (session.metadata?.clerkUserId !== userId) {
+      return { success: false, error: "Session not found" };
+    }
+
+    return {
+      success: true,
+      session: {
+        id: session.id,
+        customerEmail: session.customer_details?.email,
+        customerName: session.customer_details?.name,
+        amountTotal: session.amount_total,
+        paymentStatus: session.payment_status,
+        shippingAddress: session.customer_details?.address,
+        lineItems: session.line_items?.data.map((item) => ({
+          name: item.description,
+          quantity: item.quantity,
+          amount: item.amount_total,
+        })),
+      },
+    };
+  } catch (error) {
+    console.error("Get session error:", error);
+    return { success: false, error: "Could not retrieve order details" };
+  }
+}

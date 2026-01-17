@@ -3,6 +3,7 @@
 import { AlertTriangle, ArrowLeft, Loader2, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { CheckoutButton } from "@/components/app/CheckoutButton";
 import { Button } from "@/components/ui/button";
 import { useCartStock } from "@/lib/hooks/useCartStock";
 import {
@@ -10,7 +11,6 @@ import {
   useTotalItems,
   useTotalPrice,
 } from "@/lib/store/cart-store-provider";
-// import { CheckoutButton } from "@/components/app/CheckoutButton";
 import { formatPrice } from "@/lib/utils";
 
 export function CheckoutClient() {
@@ -192,7 +192,7 @@ export function CheckoutClient() {
             </div>
 
             <div className="mt-6">
-              {/* <CheckoutButton disabled={hasStockIssues || isLoading}/> */}
+              <CheckoutButton disabled={hasStockIssues || isLoading} />
             </div>
             <p className="mt-4 text-center text-xs text-zinc-500 dark:text-zinc-400">
               You&apos;ll be redirected to Stripe&apos;s secure checkout
