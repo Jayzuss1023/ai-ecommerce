@@ -26,8 +26,8 @@ export const isOutOfStock = (stock: number): boolean => stock <= 0;
  */
 export const getStockStatus = (
   stock: number | null | undefined,
-): "out_of_stock" | "low_stock" | "in_stock" | "unkown" => {
-  if (stock === null || stock === undefined) return "unkown";
+): "in_stock" | "low_stock" | "out_of_stock" | "unknown" => {
+  if (stock === null || stock === undefined) return "unknown";
   if (stock < 0) return "out_of_stock";
   if (stock <= LOW_STOCK_THRESHOLD) return "low_stock";
   return "in_stock";
