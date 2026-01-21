@@ -66,10 +66,10 @@ export function ChatSheet() {
 
       {/* Sidebar */}
       <div className="fixed top-0 right-0 z-50 flex flex-col h-full w-full border-l border-zinc-200 bg-white overscroll-contain dark:border-zinc-800 dark:bg-zinc-950 sm:w-md animate-in slide-in-from-right duration-300">
-        <header>
-          <div>
-            <div>
-              <Sparkles />
+        <header className="shrink-0 border-b border-zinc-200 dark:border-zinc-800">
+          <div className="flex h-16 items-center justify-between px-6">
+            <div className="flex items-center gap-2 font-semibold">
+              <Sparkles className="h-5 w-5 text-amber-500" />
               Shopping Assistant
             </div>
             <Button variant="ghost" size="icon" onClick={closeChat}>
@@ -79,14 +79,14 @@ export function ChatSheet() {
         </header>
 
         {/* Messages */}
-        <div>
+        <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-4">
           {messages.length === 0 ? (
             <WelcomeScreen
               onSuggestionClick={sendMessage}
               isSignedIn={isSignedIn ?? false}
             />
           ) : (
-            <div>
+            <div className="space-y-4">
               {messages.map((message) => {
                 const content = getMessageText(message);
                 const toolParts = getToolParts(message);
@@ -142,8 +142,8 @@ export function ChatSheet() {
         </div>
 
         {/* Input */}
-        <div>
-          <form onSubmit={handleSubmit}>
+        <div className="border-t border-zinc-200 px-4 py-4 dark:border-zinc-800">
+          <form onSubmit={handleSubmit} className="flex gap-2">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -151,7 +151,11 @@ export function ChatSheet() {
               disabled={isLoading}
               className="flex-1"
             />
-            <Button>
+            <Button
+              type="submit"
+              size="icon"
+              disabled={!input.trim() || isLoading}
+            >
               {isLoading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (

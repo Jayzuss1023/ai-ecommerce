@@ -9,7 +9,7 @@ import { ORDER_BY_ID_QUERY } from "@/lib/sanity/queries/orders";
 import { formatDate, formatPrice } from "@/lib/utils";
 import { sanityFetch } from "@/sanity/lib/live";
 
-const metadata = {
+export const metadata = {
   title: "Order Details | Furniture Shop",
   description: "View your order details",
 };

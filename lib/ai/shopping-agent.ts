@@ -1,6 +1,6 @@
 import { gateway, type Tool, ToolLoopAgent } from "ai";
-import { searchProductsTool } from "./tools/search-products";
 import { createGetMyOrdersTool } from "./tools/get-my-orders";
+import { searchProductsTool } from "./tools/search-products";
 
 interface ShoppingAgentOptions {
   userId: string | null;

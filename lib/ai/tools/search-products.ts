@@ -1,12 +1,12 @@
 import { tool } from "ai";
 import { z } from "zod";
-import { sanityFetch } from "@/sanity/lib/live";
+import type { SearchProduct } from "@/lib/ai/types";
+import { COLOR_VALUES, MATERIAL_VALUES } from "@/lib/constants/filters";
+import { getStockMessage, getStockStatus } from "@/lib/constants/stock";
 import { AI_SEARCH_PRODUCTS_QUERY } from "@/lib/sanity/queries/products";
 import { formatPrice } from "@/lib/utils";
-import { getStockStatus, getStockMessage } from "@/lib/constants/stock";
-import { MATERIAL_VALUES, COLOR_VALUES } from "@/lib/constants/filters";
+import { sanityFetch } from "@/sanity/lib/live";
 import type { AI_SEARCH_PRODUCTS_QUERYResult } from "@/sanity.types";
-import type { SearchProduct } from "@/lib/ai/types";
 
 const productSearchSchema = z.object({
   query: z
@@ -67,8 +67,8 @@ export const searchProductsTool = tool({
           categorySlug: category || "",
           material: material || "",
           color: color || "",
-          minPrice: minPrice || "",
-          maxPrice: maxPrice || "",
+          minPrice: minPrice || 0,
+          maxPrice: maxPrice || 0,
         },
       });
 

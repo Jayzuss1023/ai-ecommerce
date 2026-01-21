@@ -1,5 +1,6 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
+import { AppShell } from "@/components/AppShell";
 import { CartSheet } from "@/components/app/CartSheet";
 import { ChatSheet } from "@/components/app/ChatSheet";
 import { Header } from "@/components/app/Header";
@@ -12,8 +13,10 @@ function Layout({ children }: { children: React.ReactNode }) {
     <ClerkProvider>
       <CartStoreProvider>
         <ChatStoreProvider>
-          <Header />
-          <main>{children}</main>
+          <AppShell>
+            <Header />
+            <main>{children}</main>
+          </AppShell>
           <CartSheet />
           <ChatSheet />
           <Toaster position="bottom-center" />
