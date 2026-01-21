@@ -8,7 +8,7 @@ import { CartStoreProvider } from "@/lib/store/cart-store-provider";
 import { ChatStoreProvider } from "@/lib/store/chat-store-provider";
 import { SanityLive } from "@/sanity/lib/live";
 
-function Layout({ children }: { children: React.ReactNode }) {
+function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider>
       <CartStoreProvider>
@@ -27,4 +27,4 @@ function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default Layout;
+export default AppLayout;

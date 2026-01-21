@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import { StringRule } from "sanity";
 import { CategoryTiles } from "@/components/app/CategoryTiles";
 import { FeaturedCarousel } from "@/components/app/FeaturedCarousel";
 import { FeaturedCarouselSkeleton } from "@/components/app/FeaturedCarouselSkeleton";
@@ -34,8 +33,8 @@ export default async function HomePage({ searchParams }: PageProps) {
   const categorySlug = params.category ?? "";
   const color = params.color ?? "";
   const material = params.material ?? "";
-  const minPrice = params.minPrice || 0;
-  const maxPrice = params.maxPrice || 0;
+  const minPrice = Number(params.minPrice) || 0;
+  const maxPrice = Number(params.maxPrice) || 0;
   const sort = params.sort ?? "name";
   const inStock = params.inStock === "true";
 
@@ -72,7 +71,7 @@ export default async function HomePage({ searchParams }: PageProps) {
     },
   });
 
-  // Fetch categories for Filter sidebar
+  // Fetch categories for filter sidebar
   const { data: categories } = await sanityFetch({
     query: ALL_CATEGORIES_QUERY,
   });
@@ -102,8 +101,8 @@ export default async function HomePage({ searchParams }: PageProps) {
           </p>
         </div>
 
-        {/* Category Tiles - Full Width */}
-        <div>
+        {/* Category Tiles - Full width */}
+        <div className="mt-6">
           <CategoryTiles
             categories={categories}
             activeCategory={categorySlug || undefined}
@@ -111,8 +110,7 @@ export default async function HomePage({ searchParams }: PageProps) {
         </div>
       </div>
 
-      {/* Product Grid - expands to full width when filters hidden */}
-      <div className="mx-auto max-w-7-xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <ProductSection
           categories={categories}
           products={products}
